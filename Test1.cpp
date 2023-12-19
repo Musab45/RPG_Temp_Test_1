@@ -1,4 +1,4 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
 struct Character {
@@ -12,6 +12,7 @@ struct Enemy {
     int health;
     int attackPower;
 };
+
 
 // Function to handle character and enemy attack
 void attack(Character& character, Enemy& enemy) {
@@ -27,7 +28,7 @@ void attack(Character& character, Enemy& enemy) {
     // Enemy attacks character (if still alive)
     if (enemy.health > 0) {
         character.health -= enemy.attackPower;
-        cout << enemy.name << " attacks with " << enemy.attackPower << " damage!" << endl;
+        cout << enemy.name << " attacks back with " << enemy.attackPower << " damage!" << endl;
 
         // Check if character is defeated
         if (character.health <= 0) {
@@ -36,16 +37,24 @@ void attack(Character& character, Enemy& enemy) {
     }
 }
 
-void main() {
-    // Initialize character and enemy
-    Character hero = { "Mage", 100, 25 };
-    Enemy goblin = { "Dragon", 50, 15 };
+int main()
+{
+      // Initialize character and enemy
+  Character Mage = {"Mage", 100, 20};
+  Enemy Dragon = {"Dragon", 80, 15};
+  char choice;
+  do
+  {
+      
+      cout << "\nAttack(y/n): ";
+      cin >> choice;
+      // Print initial stats
+      cout << "\nYou: " << Mage.name << " (" << Mage.health << " HP, " << Mage.attackPower << " AP)" << endl;
+      cout << "Enemy: " << Dragon.name << " (" << Dragon.health << " HP, " << Dragon.attackPower << " AP)" << endl;
 
-    // Print initial stats
-    cout << "Hero: " << hero.name << " (" << hero.health << " HP, " << hero.attackPower << " AP)" << endl;
-    cout << "Goblin: " << goblin.name << " (" << goblin.health << " HP, " << goblin.attackPower << " AP)" << endl;
+      // Simulate attack
+      attack(Mage, Dragon);
+  } while (choice == 'y');
 
-    // Simulate attack
-    attack(hero, goblin);
-
+  return 0;
 }
