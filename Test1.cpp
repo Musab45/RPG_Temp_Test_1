@@ -22,6 +22,7 @@ Character Selected_Char;
 Character Warrior = { "Warrior", 100, 15 };
 Character Mage = { "Mage", 200, 10 };
 Character Rouge = { "Rouge", 70, 70 };
+Character Nigger = { "Nigger", 1000, 1000 };//Test Character
 
 // Initialize Enemies
 Enemy Dragon = { "Dragon", 50, 15 };
@@ -75,6 +76,12 @@ void charSelect(int char_attack_choice)
         Selected_Char.hp = Rouge.hp;
         Selected_Char.atk = Rouge.atk;
         break;
+    case 4:
+        Selected_Char.name = Nigger.name;
+        Selected_Char.hp = Nigger.hp;
+        Selected_Char.atk = Nigger.atk;
+        break;
+        //Remove if char select > 4 when final version is ready
     default:
         cout << endl;
         cout << "Wrong Entry!";
@@ -165,13 +172,13 @@ int main()
             cin >> quest_select;
             switch (quest_select)
             {
-            //Easy Quest
+            //Easy Quest --------------------------------------------------------------------
             case 1:
 
                 //Character Selection
                 CharSelectMenu();
                 cin >> char_select_main;
-                if (char_select_main > 3)
+                if (char_select_main > 4)
                 {
                     break;
                 }
@@ -248,13 +255,13 @@ int main()
                 }
                 break;
 
-            // Normal Quest
+            // Normal Quest ----------------------------------------------------------------
             case 2:
 
                 //Character Selection
                 CharSelectMenu();
                 cin >> char_select_main;
-                if (char_select_main > 3)
+                if (char_select_main > 4)
                 {
                     break;
                 }
@@ -367,7 +374,235 @@ int main()
                     }
                 }
                 break;
+            // Hard Quest --------------------------------------------------------------------------
+            case 3:
+                //Character Selection
+                CharSelectMenu();
+                cin >> char_select_main;
+                if (char_select_main > 4)
+                {
+                    break;
+                }
+                charSelect(char_select_main);
 
+                // First 2 Enemies ->  2 Dragons
+                for (int q3_drg = 1; q3_drg <= 2; q3_drg++)
+                {
+                    cout << endl;
+                    cout << "*A Lvl 1 " << Dragon.name << " Appeared!*" << endl;
+                    do
+                    {
+                        // Print Character Stats
+                        CharStatDisplay(Selected_Char);
+
+                        //Print Enemy Stats
+                        EnmStatDisplay(Dragon);
+                        cin >> attack_choice;
+
+                        // Simulate attack
+                        if (attack_choice == 'y')
+                        {
+                            attack(Selected_Char, Dragon);
+                        }
+
+                        //Exit if Enemy/Player Dies
+                        if (Selected_Char.hp <= 0 || Dragon.hp <= 0)
+                        {
+                            break;
+                        }
+
+                    } while (attack_choice == 'y');
+
+                    Dragon.hp = 50;
+
+                    if (attack_choice == 'n')
+                    {
+                        break;
+                    }
+                }
+
+                // Second 2 Enemies ->  2 Ghosts
+                for (int q3_gho = 1; q3_gho <= 2; q3_gho++)
+                {
+                    cout << endl;
+                    cout << "*A Lvl 1 " << Ghost.name << " Appeared!*" << endl;
+                    do
+                    {
+                        // Print Character Stats
+                        CharStatDisplay(Selected_Char);
+
+                        //Print Enemy Stats
+                        EnmStatDisplay(Ghost);
+                        cin >> attack_choice;
+
+                        // Simulate attack
+                        if (attack_choice == 'y')
+                        {
+                            attack(Selected_Char, Ghost);
+                        }
+
+                        //Exit if Enemy/Player Dies
+                        if (Selected_Char.hp <= 0 || Ghost.hp <= 0)
+                        {
+                            break;
+                        }
+
+                    } while (attack_choice == 'y');
+
+                    Ghost.hp = 50;
+
+                    if (attack_choice == 'n')
+                    {
+                        break;
+                    }
+                }
+
+                // Last 3 Enemies ->  3 Centaurs
+                for (int q3_cen = 1; q3_cen <= 2; q3_cen++)
+                {
+                    cout << endl;
+                    cout << "*A Lvl 1 " << Centaur.name << " Appeared!*" << endl;
+                    do
+                    {
+                        // Print Character Stats
+                        CharStatDisplay(Selected_Char);
+
+                        //Print Enemy Stats
+                        EnmStatDisplay(Centaur);
+                        cin >> attack_choice;
+
+                        // Simulate attack
+                        if (attack_choice == 'y')
+                        {
+                            attack(Selected_Char, Centaur);
+                        }
+
+                        //Exit if Enemy/Player Dies
+                        if (Selected_Char.hp <= 0 || Centaur.hp <= 0)
+                        {
+                            break;
+                        }
+
+                    } while (attack_choice == 'y');
+
+                    Centaur.hp = 100;
+
+                    if (attack_choice == 'n')
+                    {
+                        break;
+                    }
+                }
+            //Impossible ---------------------------------------------------------------------------------------
+            case 4:
+                
+                //Character Selection
+                CharSelectMenu();
+                cin >> char_select_main;
+                if (char_select_main > 4)
+                {
+                    break;
+                }
+                charSelect(char_select_main);
+
+                //First Enemy -> Centaur
+                cout << endl;
+                cout << "*A Lvl 1 " << Centaur.name << " Appeared!*" << endl;
+                do
+                {
+                    // Print Character Stats
+                    CharStatDisplay(Selected_Char);
+
+                    //Print Enemy Stats
+                    EnmStatDisplay(Centaur);
+                    cin >> attack_choice;
+
+                    // Simulate attack
+                    if (attack_choice == 'y')
+                    {
+                        attack(Selected_Char, Centaur);
+                    }
+
+                    //Exit if Enemy/Player Dies
+                    if (Selected_Char.hp <= 0 || Centaur.hp <= 0)
+                    {
+                        break;
+                    }
+
+                } while (attack_choice == 'y');
+
+                Centaur.hp = 100;
+
+                if (attack_choice == 'n')
+                {
+                    break;
+                }
+
+                //Second Enemy -> Ghost
+                cout << endl;
+                cout << "*A Lvl 1 " << Ghost.name << " Appeared!*" << endl;
+                do
+                {
+                    // Print Character Stats
+                    CharStatDisplay(Selected_Char);
+
+                    //Print Enemy Stats
+                    EnmStatDisplay(Ghost);
+                    cin >> attack_choice;
+
+                    // Simulate attack
+                    if (attack_choice == 'y')
+                    {
+                        attack(Selected_Char, Ghost);
+                    }
+
+                    //Exit if Enemy/Player Dies
+                    if (Selected_Char.hp <= 0 || Ghost.hp <= 0)
+                    {
+                        break;
+                    }
+
+                } while (attack_choice == 'y');
+
+                Ghost.hp = 90;
+
+                if (attack_choice == 'n')
+                {
+                    break;
+                }
+
+                //Last Enemy -> Grim Reaper
+                cout << endl;
+                cout << "*A Lvl 1 " << GrimReaper.name << " Appeared!*" << endl;
+                do
+                {
+                    // Print Character Stats
+                    CharStatDisplay(Selected_Char);
+
+                    //Print Enemy Stats
+                    EnmStatDisplay(GrimReaper);
+                    cin >> attack_choice;
+
+                    // Simulate attack
+                    if (attack_choice == 'y')
+                    {
+                        attack(Selected_Char, GrimReaper);
+                    }
+
+                    //Exit if Enemy/Player Dies
+                    if (Selected_Char.hp <= 0 || GrimReaper.hp <= 0)
+                    {
+                        break;
+                    }
+
+                } while (attack_choice == 'y');
+
+                GrimReaper.hp = 150;
+
+                if (attack_choice == 'n')
+                {
+                    break;
+                }
+                break;
             }
             cout << "\nReturn to Menu?(y/n): ";
             cin >> return_choice;
