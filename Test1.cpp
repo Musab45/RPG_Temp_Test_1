@@ -15,8 +15,14 @@ struct Enemy
     int atk;
 };
 
+// Inventory Items
+int Healing_Portion = 0;
+int Poison_Spell = 0;
+
 // Selected Character
 Character Selected_Char;
+// Selected Enemy
+Enemy Active_Enemy;
 
 // Initialize Characters
 Character Warrior = { "Warrior", 100, 15 };
@@ -88,6 +94,14 @@ void charSelect(int char_attack_choice)
     }
 }
 
+// Enemy Decision
+void enemyDecision(Enemy& enemy)
+{
+    Active_Enemy.name = enemy.name;
+    Active_Enemy.hp = enemy.hp;
+    Active_Enemy.atk = enemy.atk;
+}
+
 // Character Stats Display
 void CharStatDisplay(Character& character)
 {
@@ -109,6 +123,20 @@ void EnmStatDisplay(Enemy& enemy)
     cout << "\nAttack(y/n): ";
 }
 
+// Action Function
+void action()
+{
+    cout << "1. Attack        2. Inventory";
+    cout << "3. Ability       4. Flee" << endl;
+    int action_choice = 0;
+    cout << "Enter Choice: ";
+    cin >> action_choice;
+    switch (action_choice)
+    {
+    case 1:
+        attack(Selected_Char, Active_Enemy);
+    }
+}
 
 // Attack Function
 void attack(Character& character, Enemy& enemy) 
@@ -142,6 +170,7 @@ void attack(Character& character, Enemy& enemy)
     }
 }
 
+// Choice Variables
 char attack_choice;
 int char_select_main;
 
@@ -186,27 +215,28 @@ int main()
 
 
                 // First 2 Enemies -> 2 Skeletons
+                enemyDecision(Centaur);
                 for (int q1_sk = 1; q1_sk <= 2; q1_sk++)
                 {
                     cout << endl;
-                    cout << "*A Lvl 1 " << Skeleton.name << " Appeared!*" << endl;
+                    cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
                     do
                     {
                         // Print Character Stats
                         CharStatDisplay(Selected_Char);
 
                         //Print Enemy Stats
-                        EnmStatDisplay(Skeleton);
+                        EnmStatDisplay(Active_Enemy);
                         cin >> attack_choice;
 
                         // Simulate attack
                         if (attack_choice == 'y')
                         {
-                            attack(Selected_Char, Skeleton);
+                            attack(Selected_Char, Active_Enemy);
                         }
 
                         //Exit if Enemy/Player Dies
-                        if (Selected_Char.hp <= 0 || Skeleton.hp <= 0)
+                        if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
                         {
                             break;
                         }
