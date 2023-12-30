@@ -120,22 +120,33 @@ void inventory_selection(int& choice)
     switch (choice)
     {
     case 1:
+        cout << "---------------------------------------" << endl;
+        cout << endl;
+        cout << "Out of Healing Potions";
+        cout << endl;
         if (Healing_Portion > 0)
         {
             Selected_Char.hp += 30;
             cout << endl;
-            cout << Selected_Char.name << " healed 30 HP" << endl;
+            cout << Selected_Char.name << " gained 30 HP" << endl;
             Healing_Portion -= 1;
             cout << endl;
             cout << "---------------------------------------" << endl;
         }
         break;
     case 2:
+        if (Poison_Spell <= 0)
+        {
+            cout << "---------------------------------------" << endl;
+            cout << endl;
+            cout << "Out of Poison Spells";
+            cout << endl;
+        }
         if (Poison_Spell > 0)
         {
             Active_Enemy.hp -= 50;
             cout<<endl;
-            cout << Selected_Char.name << " used poison on " << Active_Enemy.name << " and dealed 50 HP" << endl;
+            cout << Selected_Char.name << " used poison on " << Active_Enemy.name << " and dealed 50 Damage" << endl;
             Poison_Spell -= 1;
             if (Active_Enemy.hp <= 0)
             {
@@ -195,7 +206,7 @@ void action()
     switch (action_choice)
     {
     case 1:
-        if (Selected_Char.hp > 0 || Active_Enemy.hp > 0)
+        if (Active_Enemy.hp > 0)
         {
             attack(Selected_Char, Active_Enemy);
         }
@@ -207,6 +218,7 @@ void action()
         break;
     case 3:
         special_ability();
+        break;
     }
 }
 
@@ -266,6 +278,7 @@ void charSelect()
 //Quest
 void quest()
 {
+    char fight;
     int quest_select = 0;
     cout << endl;
     cout << "Select a Quest: " << endl;
@@ -278,19 +291,116 @@ void quest()
     cin >> quest_select;
     switch (quest_select)
     {
+    // Easy Quest
     case 1:
-        //Set Skeleton as Active Enemy
+        // 2 Skeletons
+        // Set Skeleton as Active Enemy
         enemyDecision(Skeleton);
+        for (int q1_sk = 1; q1_sk <= 2; q1_sk++)
+        {
+            Active_Enemy.hp = 30;
+            cout << endl;
+            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+            cout << "Fight?(y/n): ";
+            cin >> fight;
             do
             {
                 CharStatDisplay(Selected_Char);
                 EnemyStatDisplay(Active_Enemy);
                 action();
-                if (Active_Enemy.hp <= 0)
+                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
                 {
                     break;
                 }
-            } while (action_choice < 4);
+            } while (fight == 'y');
+        }
+
+        // 1 Dragon
+        // Set Dragon as Active Enemy
+        enemyDecision(Dragon);
+        cout << endl;
+        cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+        cout << "Fight?(y/n): ";
+        cin >> fight;
+        do
+        {
+            CharStatDisplay(Selected_Char);
+            EnemyStatDisplay(Active_Enemy);
+            action();
+            if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
+            {
+                break;
+            }
+        } while (fight == 'y');
+        break;
+
+    // Normal Quest
+    case 2:
+        // 3 Skeletons
+        // Set Skeleton as Active Enemy
+        enemyDecision(Skeleton);
+        for (int q2_sk = 1; q2_sk <= 3; q2_sk++)
+        {
+            Active_Enemy.hp = 30;
+            cout << endl;
+            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+            cout << "Fight?(y/n): ";
+            cin >> fight;
+            do
+            {
+                CharStatDisplay(Selected_Char);
+                EnemyStatDisplay(Active_Enemy);
+                action();
+                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
+                {
+                    break;
+                }
+            } while (fight == 'y');
+        }
+
+        // 2 Dragon
+        // Set Dragon as Active Enemy
+        enemyDecision (Dragon);
+        for (int q2_drg = 1; q2_drg <= 2; q2_drg++)
+        {
+            Active_Enemy.hp = 50;
+            cout << endl;
+            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+            cout << "Fight?(y/n): ";
+            cin >> fight;
+            do
+            {
+                CharStatDisplay(Selected_Char);
+                EnemyStatDisplay(Active_Enemy);
+                action();
+                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
+                {
+                    break;
+                }
+            } while (fight == 'y');
+        }
+
+        // 2 Ghost
+       // Set Ghost as Active Enemy
+        enemyDecision(Ghost);
+        for (int q2_gho = 1; q2_gho <= 2; q2_gho++)
+        {
+            Active_Enemy.hp = 90;
+            cout << endl;
+            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+            cout << "Fight?(y/n): ";
+            cin >> fight;
+            do
+            {
+                CharStatDisplay(Selected_Char);
+                EnemyStatDisplay(Active_Enemy);
+                action();
+                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
+                {
+                    break;
+                }
+            } while (fight == 'y');
+        }
     }
 }
 
