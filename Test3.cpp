@@ -401,6 +401,132 @@ void quest()
                 }
             } while (fight == 'y');
         }
+        break;
+   
+    //Hard Quest
+    case 3:
+        // 2 Dragon
+        // Set Dragon as Active Enemy
+        enemyDecision(Dragon);
+        for (int q3_drg = 1; q3_drg <= 2; q3_drg++)
+        {
+            Active_Enemy.hp = 50;
+            cout << endl;
+            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+            cout << "Fight?(y/n): ";
+            cin >> fight;
+            do
+            {
+                CharStatDisplay(Selected_Char);
+                EnemyStatDisplay(Active_Enemy);
+                action();
+                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
+                {
+                    break;
+                }
+            } while (fight == 'y');
+        }
+
+        // 3 Ghost
+       // Set Ghost as Active Enemy
+        enemyDecision(Ghost);
+        for (int q3_gho = 1; q3_gho <= 3; q3_gho++)
+        {
+            Active_Enemy.hp = 90;
+            cout << endl;
+            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+            cout << "Fight?(y/n): ";
+            cin >> fight;
+            do
+            {
+                CharStatDisplay(Selected_Char);
+                EnemyStatDisplay(Active_Enemy);
+                action();
+                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
+                {
+                    break;
+                }
+            } while (fight == 'y');
+        }
+
+        // 3 Centaurs
+        // Set Ghost as Active Enemy
+        enemyDecision(Centaur);
+        for (int q3_cen = 1; q3_cen <= 3; q3_cen++)
+        {
+            Active_Enemy.hp = 90;
+            cout << endl;
+            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+            cout << "Fight?(y/n): ";
+            cin >> fight;
+            do
+            {
+                CharStatDisplay(Selected_Char);
+                EnemyStatDisplay(Active_Enemy);
+                action();
+                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
+                {
+                    break;
+                }
+            } while (fight == 'y');
+        }
+        break;
+
+    //Impossible
+    case 4:
+        // 1 Dragon
+        // Set Dragon as Active Enemy
+        enemyDecision(Dragon);
+        cout << endl;
+        cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+        cout << "Fight?(y/n): ";
+        cin >> fight;
+        do
+        {
+            CharStatDisplay(Selected_Char);
+            EnemyStatDisplay(Active_Enemy);
+            action();
+            if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
+            {
+                break;
+            }
+        } while (fight == 'y');
+
+        // 1 Ghost
+        // Set Ghost as Active Enemy
+        enemyDecision(Ghost);
+        cout << endl;
+        cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+        cout << "Fight?(y/n): ";
+        cin >> fight;
+        do
+        {
+            CharStatDisplay(Selected_Char);
+            EnemyStatDisplay(Active_Enemy);
+            action();
+            if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
+            {
+                break;
+            }
+        } while (fight == 'y');
+
+        // 1 Grim Reaper
+        // Set Grim Reaper as Active Enemy
+        enemyDecision(GrimReaper);
+        cout << endl;
+        cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+        cout << "Fight?(y/n): ";
+        cin >> fight;
+        do
+        {
+            CharStatDisplay(Selected_Char);
+            EnemyStatDisplay(Active_Enemy);
+            action();
+            if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
+            {
+                break;
+            }
+        } while (fight == 'y');
     }
 }
 
