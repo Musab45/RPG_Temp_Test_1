@@ -15,6 +15,9 @@ struct Enemy
     int atk;
 };
 
+// Currency
+int currency = 30;
+
 // Inventory Items
 int Healing_Portion = 2;
 int Poison_Spell = 1;
@@ -103,6 +106,67 @@ void attack(Character& character, Enemy& enemy)
             cout << "* " << character.name << " is defeated! *" << endl;
         }
     }
+}
+
+// Shop Display
+void shop()
+{
+    int shop_choice = 0;
+    char shop_loop;
+    do
+    {
+        cout << endl;
+        cout << "Welcome to Shop!" << endl;
+        cout << "Please select an item to purchase: " << endl;
+        cout << "1. Healing Potion - 20$" << endl;
+        cout << "2. Poison Spell - 50$" << endl;
+        cout << endl;
+        cout << "Your Currency: " << currency << "$" << endl;
+        cout << endl;
+        cout << "Enter Selection: ";
+        cin >> shop_choice;
+        cout << endl;
+        cout << "---------------------------------------" << endl;
+        switch (shop_choice)
+        {
+        case 1:
+            if (currency < 20)
+            {
+                cout << "Insufficient Currency!";
+                cout << endl;
+                cout << "---------------------------------------" << endl;
+            }
+            if (currency >= 20)
+            {
+                currency -= 20;
+                Healing_Portion += 1;
+                cout << endl;
+                cout << "Healing Potion purchased!";
+                cout << endl;
+                cout << "---------------------------------------" << endl;
+            }
+            break;
+        case 2:
+            if (currency < 50)
+            {
+                cout << "Insufficient Currency!";
+                cout << endl;
+                cout << "---------------------------------------" << endl;
+            }
+            if (currency >= 50)
+            {
+                currency -= 50;
+                Poison_Spell += 1;
+                cout << endl;
+                cout << "Healing Potion purchased!";
+                cout << endl;
+                cout << "---------------------------------------" << endl;
+            }
+            break;
+        }
+    cout << "Purchase Again?(y/n): ";
+    cin >> shop_loop;
+    } while (shop_loop == 'y');
 }
 
 // Inventory Display
@@ -549,7 +613,7 @@ void GameMenu()
         quest();
         break;
     case 2:
-        cout << "l";
+        shop();
         break;
     case 3:
         inventory_diplay();
