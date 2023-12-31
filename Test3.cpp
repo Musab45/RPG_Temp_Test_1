@@ -18,6 +18,8 @@ struct Enemy
 // Currency
 int currency = 30;
 
+// XP Points
+int xp = 0;
 // Inventory Items
 int Healing_Portion = 2;
 int Poison_Spell = 1;
@@ -27,6 +29,11 @@ bool warrior_sp = false;
 bool mage_sp = false;
 bool rouge_sp = false;
 bool sp_used = false; //True when special power is once used
+
+// Max Level Limiters
+bool warrior_max = false;
+bool mage_max = false;
+bool rouge_max = false;
 
 // Selected Character
 Character Selected_Char;
@@ -108,6 +115,97 @@ void attack(Character& character, Enemy& enemy)
     }
 }
 
+//// Character Upgrade Display
+void char_display_upgrade()
+{
+    cout << endl;
+    cout << "---------------------------------------" << endl;
+    cout << "Select Character for Upgrade: " << endl;
+    cout << "1. Warrior" << endl;
+    cout << "2. Mage" << endl;
+    cout << "3. Rouge" << endl;
+    cout << endl;
+    cout << "Enter Selection: ";
+}
+
+// Character Upgrade
+void char_upgrade()
+{
+    int  upgrade_choice = 0;
+    char_display_upgrade();
+    cin >> upgrade_choice;
+    switch (upgrade_choice)
+    {
+    case 1:
+        if (Warrior.hp >= 140)
+        {
+            warrior_max = true;
+        }
+        if (!warrior_max)
+        {
+            Warrior.hp += 10;
+            Warrior.atk += 5;
+            cout << "---------------------------------------" << endl;
+            cout << "Warrior Upgraded Successfully!" << endl;
+            cout << endl;
+            cout << "---------------------------------------" << endl;
+        }
+        if (warrior_max)
+        {
+            cout << "---------------------------------------" << endl;
+            cout << "Warrior is already at max level" << endl;
+            cout << endl;
+            cout << "---------------------------------------" << endl;
+        }
+        break;
+    case 2:
+        if (Mage.hp >= 280)
+        {
+            mage_max = true;
+        }
+        if (!mage_max)
+        {
+            Mage.hp += 20;
+            Mage.atk += 20;
+            cout << "---------------------------------------" << endl;
+            cout << "Mage Upgraded Successfully!" << endl;
+            cout << endl;
+            cout << "---------------------------------------" << endl;
+        }
+        if (mage_max)
+        {
+            cout << endl;
+            cout << "---------------------------------------" << endl;
+            cout << "Mage is already at max level" << endl;
+            cout << "---------------------------------------" << endl;
+        }
+        break;
+    case 3:
+        if (Rouge.hp >= 90)
+        {
+            rouge_max = true;
+        }
+        if (!rouge_max)
+        {
+            Rouge.hp += 5;
+            Rouge.atk += 10;
+            cout << "---------------------------------------" << endl;
+            cout << "Rouge Upgraded Successfully!" << endl;
+            cout << endl;
+            cout << "---------------------------------------" << endl;
+        }
+        if (rouge_max)
+        {
+            cout << "---------------------------------------" << endl;
+            cout << "Rouge is already at max level" << endl;
+            cout << endl;
+            cout << "---------------------------------------" << endl;
+        }
+        break;
+    default:
+        cout << "Wrong Entry!" << endl;
+    }
+}
 // Shop Display
 void shop()
 {
@@ -115,11 +213,14 @@ void shop()
     char shop_loop;
     do
     {
+        cout << "---------------------------------------" << endl;
         cout << endl;
         cout << "Welcome to Shop!" << endl;
+        cout << endl;
         cout << "Please select an item to purchase: " << endl;
         cout << "1. Healing Potion - 20$" << endl;
         cout << "2. Poison Spell - 50$" << endl;
+        cout << "3. Press any key to return" << endl;
         cout << endl;
         cout << "Your Currency: " << currency << "$" << endl;
         cout << endl;
@@ -163,19 +264,23 @@ void shop()
                 cout << "---------------------------------------" << endl;
             }
             break;
+        default:
+            break;
         }
-    cout << "Purchase Again?(y/n): ";
-    cin >> shop_loop;
+        cout << "Return to Shop?(y/n): ";
+        cin >> shop_loop;
+
     } while (shop_loop == 'y');
 }
 
 // Inventory Display
 void inventory_diplay()
 {
+    cout << "---------------------------------------" << endl;
     cout << endl;
-    cout << "1. Healing Potion = "<< Healing_Portion << endl;
+    cout << "1. Healing Potion = " << Healing_Portion << endl;
     cout << "2. Poison Spell = " << Poison_Spell << endl;
-    cout << endl;
+    cout << "---------------------------------------" << endl;
     cout << "Enter Selection: ";
 }
 // Inventory Selection
@@ -209,7 +314,7 @@ void inventory_selection(int& choice)
         if (Poison_Spell > 0)
         {
             Active_Enemy.hp -= 50;
-            cout<<endl;
+            cout << endl;
             cout << Selected_Char.name << " used poison on " << Active_Enemy.name << " and dealed 50 Damage" << endl;
             Poison_Spell -= 1;
             if (Active_Enemy.hp <= 0)
@@ -290,6 +395,8 @@ void action()
 void CharSelectMenu()
 {
     cout << endl;
+    cout << "---------------------------------------" << endl;
+    cout << endl;
     cout << "Select a Character: " << endl;
     cout << endl;
     cout << "1. Warrior" << endl;
@@ -303,7 +410,9 @@ void charSelect()
     int choice = 0;
     do
     {
+
         cout << endl;
+        cout << "---------------------------------------" << endl;
         cout << "Selection: ";
         cin >> choice;
         switch (choice)
@@ -344,6 +453,7 @@ void quest()
 {
     char fight;
     int quest_select = 0;
+    cout << "---------------------------------------" << endl;
     cout << endl;
     cout << "Select a Quest: " << endl;
     cout << "1. Easy Quest" << endl;
@@ -355,7 +465,7 @@ void quest()
     cin >> quest_select;
     switch (quest_select)
     {
-    // Easy Quest
+        // Easy Quest
     case 1:
         // 2 Skeletons
         // Set Skeleton as Active Enemy
@@ -396,9 +506,13 @@ void quest()
                 break;
             }
         } while (fight == 'y');
+        cout << "* Easy Quest Completed! *" << endl;
+        cout << "* You have earned 5$ and 50 XP *" << endl;
+        currency += 5;
+        xp += 50;
         break;
 
-    // Normal Quest
+        // Normal Quest
     case 2:
         // 3 Skeletons
         // Set Skeleton as Active Enemy
@@ -424,7 +538,7 @@ void quest()
 
         // 2 Dragon
         // Set Dragon as Active Enemy
-        enemyDecision (Dragon);
+        enemyDecision(Dragon);
         for (int q2_drg = 1; q2_drg <= 2; q2_drg++)
         {
             Active_Enemy.hp = 50;
@@ -465,9 +579,13 @@ void quest()
                 }
             } while (fight == 'y');
         }
+        cout << "* Easy Quest Completed! *" << endl;
+        cout << "* You have earned 10$ and 100 XP *" << endl;
+        currency += 10;
+        xp += 100;
         break;
-   
-    //Hard Quest
+
+        //Hard Quest
     case 3:
         // 2 Dragon
         // Set Dragon as Active Enemy
@@ -534,9 +652,13 @@ void quest()
                 }
             } while (fight == 'y');
         }
+        cout << "* Easy Quest Completed! *" << endl;
+        cout << "* You have earned 20$ and 200 XP *" << endl;
+        currency += 20;
+        xp += 200;
         break;
 
-    //Impossible
+        //Impossible
     case 4:
         // 1 Dragon
         // Set Dragon as Active Enemy
@@ -591,6 +713,10 @@ void quest()
                 break;
             }
         } while (fight == 'y');
+        cout << "* Easy Quest Completed! *" << endl;
+        cout << "* You have earned 50$ and 500 XP *" << endl;
+        currency += 50;
+        xp += 500;
     }
 }
 
@@ -598,12 +724,16 @@ void quest()
 void GameMenu()
 {
     int menu_choice = 0;
+    cout << "---------------------------------------" << endl;
     cout << "RPG GAME" << endl;
     cout << "\nMenu" << endl;
     cout << "\n1. Start a Quest!" << endl;
     cout << "2. Go to Shop" << endl;
     cout << "3. View Inventory" << endl;
-    cout << "\nEnter Selection: ";
+    cout << "4. Upgrade Characters" << endl;
+    cout << endl;
+    cout << "---------------------------------------" << endl;
+    cout << "Enter Selection: ";
     cin >> menu_choice;
     switch (menu_choice)
     {
@@ -618,19 +748,29 @@ void GameMenu()
     case 3:
         inventory_diplay();
         break;
+    case 4:
+        char_upgrade();
+        break;
+    default:
+        cout << "Wrong Entry" << endl;
     }
 }
 
-void main()
+int main()
 {
     char escape;
     do
     {
         GameMenu();
         cout << endl;
-        cout << "Press y to return to menu" << endl;
-        cout << "Press any key to exit" << endl;
+        cout << "---------------------------------------" << endl;
+        cout << endl;
+        cout << "Press 'y' to Return to Menu" << endl;
+        cout << "Press Any Key to Exit Game" << endl;
+        cout << endl;
+        cout << "---------------------------------------" << endl;
         cout << "Selection: ";
         cin >> escape;
     } while (escape == 'y');
+    return 0;
 }
