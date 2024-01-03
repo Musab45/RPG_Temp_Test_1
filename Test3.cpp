@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 using namespace std;
 
 struct Character
@@ -15,6 +16,26 @@ struct Enemy
     int atk;
 };
 
+// Player Data
+string player_name;
+int score = 0;
+void playerdata()
+{
+    cout << endl;
+    cout << "Enter Player Name: ";
+    getline(cin, player_name);
+}
+
+// Player Data Display
+void playerdatadisplay()
+{
+    cout << endl;
+    cout << "---------------------------------------" << endl;
+    cout << "Name: " << player_name << endl;
+    cout << "Score: " << score;
+    cout << endl;
+    cout << "---------------------------------------" << endl;
+}
 // Special
 bool specials_unlocked = false;
 // Currency
@@ -739,6 +760,9 @@ void GameMenu()
     int menu_choice = 0;
     cout << "---------------------------------------" << endl;
     cout << "RPG GAME" << endl;
+    cout << endl;
+    cout << "---------------------------------------" << endl;
+    playerdatadisplay();
     cout << "\nMenu" << endl;
     cout << "\n1. Start a Quest!" << endl;
     cout << "2. Go to Shop" << endl;
@@ -774,6 +798,7 @@ int main()
     char escape;
     do
     {
+        playerdata();
         GameMenu();
         cout << endl;
         cout << "---------------------------------------" << endl;
