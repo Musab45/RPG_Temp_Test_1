@@ -7,17 +7,17 @@ using namespace std;
 struct Character
 {
     string name;
-    int hp;
-    int atk_max;
-    int atk_min;
+    int hp = 0;
+    int atk_max = 0;
+    int atk_min = 0;
 };
 
 struct Enemy
 {
     string name;
-    int hp;
-    int atk_max;
-    int atk_min;
+    int hp = 0;
+    int atk_max = 0;
+    int atk_min = 0;
 };
 
 // Player Data
@@ -584,7 +584,6 @@ void battle()
 //Quest
 void quest()
 {
-    char fight;
     int quest_select = 0;
     cout << "---------------------------------------" << endl;
     cout << endl;
@@ -604,169 +603,189 @@ void quest()
     }
     cout << endl;
     cout << "---------------------------------------" << endl;
-    cout << endl;
-    cout << "Enter Selection: ";
-    cin >> quest_select;
-    switch (quest_select)
+    cout << endl;    
+    do
     {
-        // Easy Quest
-    case 1:
-        // 2 Skeletons
-        // Set Skeleton as Active Enemy
-        enemyDecision(Skeleton);
-        for (int q1_sk = 1; q1_sk <= 2; q1_sk++)
+        cout << "Enter Selection: ";
+        cin >> quest_select;
+        if (quest_select <= 5)
         {
-            Active_Enemy.hp = 30;
-            battle();
-        }
-
-        // 1 Dragon
-        // Set Dragon as Active Enemy
-        enemyDecision(Dragon);
-        battle();
-        // Reward
-        cout << "* Easy Quest Completed! *" << endl;
-        cout << "* You have earned 5$ and 50 XP *" << endl;
-        currency += 5;
-        xp += 50;
-        break;
-
-        // Normal Quest
-    case 2:
-        // 3 Skeletons
-        // Set Skeleton as Active Enemy
-        enemyDecision(Skeleton);
-        for (int q2_sk = 1; q2_sk <= 3; q2_sk++)
-        {
-            Active_Enemy.hp = 30;
-            battle();
-        }
-
-        // 2 Dragon
-        // Set Dragon as Active Enemy
-        enemyDecision(Dragon);
-        for (int q2_drg = 1; q2_drg <= 2; q2_drg++)
-        {
-            Active_Enemy.hp = 50;
-            battle();
-        }
-
-        // 2 Ghost
-       // Set Ghost as Active Enemy
-        enemyDecision(Ghost);
-        for (int q2_gho = 1; q2_gho <= 2; q2_gho++)
-        {
-            Active_Enemy.hp = 90;
-            battle();
-        }
-        // Reward
-        cout << "* Normal Quest Completed! *" << endl;
-        cout << "* You have earned 10$ and 100 XP *" << endl;
-        currency += 10;
-        xp += 100;
-        break;
-
-        //Hard Quest
-    case 3:
-        // 2 Dragon
-        // Set Dragon as Active Enemy
-        enemyDecision(Dragon);
-        for (int q3_drg = 1; q3_drg <= 2; q3_drg++)
-        {
-            Active_Enemy.hp = 50;
-            battle();
-        }
-
-        // 3 Ghost
-       // Set Ghost as Active Enemy
-        enemyDecision(Ghost);
-        for (int q3_gho = 1; q3_gho <= 3; q3_gho++)
-        {
-            Active_Enemy.hp = 90;
-            battle();
-        }
-
-        // 3 Centaurs
-        // Set Ghost as Active Enemy
-        enemyDecision(Centaur);
-        for (int q3_cen = 1; q3_cen <= 3; q3_cen++)
-        {
-            Active_Enemy.hp = 90;
-            battle();
-        }
-        // Reward
-        cout << "* Hard Quest Completed! *" << endl;
-        cout << "* You have earned 20$ and 200 XP *" << endl;
-        currency += 20;
-        xp += 200;
-        break;
-
-        //Impossible
-    case 4:
-        // 1 Dragon
-        // Set Dragon as Active Enemy
-        enemyDecision(Dragon);
-        battle();
-
-        // 1 Ghost
-        // Set Ghost as Active Enemy
-        enemyDecision(Ghost);
-        battle();
-
-        // 1 Grim Reaper
-        // Set Grim Reaper as Active Enemy
-        enemyDecision(GrimReaper);
-        battle();
-        if (Active_Enemy.hp <= 0)
-        {
-            specials_unlocked = true;
-        }
-        // Reward
-        cout << "* Impossible Quest Completed! *" << endl;
-        cout << "* You have earned 50$ and 500 XP *" << endl;
-        currency += 50;
-        xp += 500;
-        break;
-
-        // The Final Battle
-    case 5:
-        if (specials_unlocked)
-        {
-            int fate = 0;
-            cout << endl;
-            cout << "---------------------------------------" << endl;
-            cout << "Choose your Fate:" << endl;
-            cout << "1. Destroy the Shadow Realm" << endl;
-            cout << "2. Destroy the Fairy World" << endl;
-            cout << "Enter Selection: ";
-            do
+            switch (quest_select)
             {
-                cin >> fate;
-                if (fate == 1)
+                // Easy Quest
+            case 1:
+                // 2 Skeletons
+                // Set Skeleton as Active Enemy
+                enemyDecision(Skeleton);
+                for (int q1_sk = 1; q1_sk <= 2; q1_sk++)
                 {
-                    //Good Ending
-                    enemyDecision(Shadow_Overlord);
+                    Active_Enemy.hp = 30;
                     battle();
                 }
 
-                if (fate == 2)
+                // 1 Dragon
+                // Set Dragon as Active Enemy
+                enemyDecision(Dragon);
+                battle();
+                // Reward
+                cout << "* Easy Quest Completed! *" << endl;
+                cout << "* You have earned 5$ and 50 XP *" << endl;
+                currency += 5;
+                xp += 50;
+                score += 500;
+                cout << "500 Score Gained!" << endl;
+                break;
+
+                // Normal Quest
+            case 2:
+                // 3 Skeletons
+                // Set Skeleton as Active Enemy
+                enemyDecision(Skeleton);
+                for (int q2_sk = 1; q2_sk <= 3; q2_sk++)
                 {
-                    //Bad Ending
-                    enemyDecision(Fairy_King);
-                    battle;
+                    Active_Enemy.hp = 30;
+                    battle();
                 }
-            } while (fate > 2);
+
+                // 2 Dragon
+                // Set Dragon as Active Enemy
+                enemyDecision(Dragon);
+                for (int q2_drg = 1; q2_drg <= 2; q2_drg++)
+                {
+                    Active_Enemy.hp = 50;
+                    battle();
+                }
+
+                // 2 Ghost
+               // Set Ghost as Active Enemy
+                enemyDecision(Ghost);
+                for (int q2_gho = 1; q2_gho <= 2; q2_gho++)
+                {
+                    Active_Enemy.hp = 90;
+                    battle();
+                }
+                // Reward
+                cout << "* Normal Quest Completed! *" << endl;
+                cout << "* You have earned 10$ and 100 XP *" << endl;
+                currency += 10;
+                xp += 100;
+                score += 1500;
+                cout << "1500 Score Gained!" << endl;
+                break;
+
+                //Hard Quest
+            case 3:
+                // 2 Dragon
+                // Set Dragon as Active Enemy
+                enemyDecision(Dragon);
+                for (int q3_drg = 1; q3_drg <= 2; q3_drg++)
+                {
+                    Active_Enemy.hp = 50;
+                    battle();
+                }
+
+                // 3 Ghost
+               // Set Ghost as Active Enemy
+                enemyDecision(Ghost);
+                for (int q3_gho = 1; q3_gho <= 3; q3_gho++)
+                {
+                    Active_Enemy.hp = 90;
+                    battle();
+                }
+
+                // 3 Centaurs
+                // Set Ghost as Active Enemy
+                enemyDecision(Centaur);
+                for (int q3_cen = 1; q3_cen <= 3; q3_cen++)
+                {
+                    Active_Enemy.hp = 90;
+                    battle();
+                }
+                // Reward
+                cout << "* Hard Quest Completed! *" << endl;
+                cout << "* You have earned 20$ and 200 XP *" << endl;
+                currency += 20;
+                xp += 200;
+                score += 3000;
+                cout << "3000 Score Gained!" << endl;
+                break;
+
+                //Impossible
+            case 4:
+                // 1 Dragon
+                // Set Dragon as Active Enemy
+                enemyDecision(Dragon);
+                battle();
+
+                // 1 Ghost
+                // Set Ghost as Active Enemy
+                enemyDecision(Ghost);
+                battle();
+
+                // 1 Grim Reaper
+                // Set Grim Reaper as Active Enemy
+                enemyDecision(GrimReaper);
+                battle();
+                if (Active_Enemy.hp <= 0)
+                {
+                    specials_unlocked = true;
+                }
+                // Reward
+                cout << "* Impossible Quest Completed! *" << endl;
+                cout << "* You have earned 50$ and 500 XP *" << endl;
+                currency += 50;
+                xp += 500;
+                score += 3500;
+                cout << "3500 Score Gained!" << endl;
+                break;
+
+                // The Final Battle
+            case 5:
+                if (specials_unlocked)
+                {
+                    int fate = 0;
+                    cout << endl;
+                    cout << "---------------------------------------" << endl;
+                    cout << "Choose your Fate:" << endl;
+                    cout << "1. Destroy the Shadow Realm" << endl;
+                    cout << "2. Destroy the Fairy World" << endl;
+                    cout << "Enter Selection: ";
+                    do
+                    {
+                        cin >> fate;
+                        if (fate == 1)
+                        {
+                            //Good Ending
+                            enemyDecision(Shadow_Overlord);
+                            battle();
+                        }
+
+                        if (fate == 2)
+                        {
+                            //Bad Ending
+                            enemyDecision(Fairy_King);
+                            battle();
+                        }
+                    } while (fate > 2);
+                }
+                if (!specials_unlocked)
+                {
+                    cout << "Quest Locked!" << endl;
+                }
+                // Rewards
+                cout << "* Impossible Quest Completed! *" << endl;
+                cout << "* You have earned 100$ and 1000 XP *" << endl;
+                currency += 100;
+                xp += 1000;
+                score += 10000;
+                cout << "10,000 Score Gained!" << endl;
+            }
         }
-        if (!specials_unlocked)
+        else
         {
-            cout << "Quest Locked!" << endl;
+            cout << "Wrong Entry!" << endl;
         }
-        // Rewards
-        cout << "* Impossible Quest Completed! *" << endl;
-        cout << "* You have earned 100$ and 1000 XP *" << endl;
-        currency += 100;
-        xp += 1000;
-    }
+    }while (quest_select > 5);
 }
 
 // Quest Menu Display
@@ -810,13 +829,13 @@ void GameMenu()
 
 int main()
 {
+    playerdata();
     // Initialize random seed
     srand(static_cast<unsigned int>(time(0)));
 
     char escape;
     do
-    {
-        playerdata();
+    {        
         GameMenu();
         cout << endl;
         cout << "---------------------------------------" << endl;
