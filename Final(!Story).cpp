@@ -155,10 +155,13 @@ void char_display_upgrade()
 {
     cout << endl;
     cout << "---------------------------------------" << endl;
+    cout << endl;
+    cout << "Available XP: " << xp << endl;
+    cout << endl;
     cout << "Select Character for Upgrade: " << endl;
-    cout << "1. Warrior" << endl;
-    cout << "2. Mage" << endl;
-    cout << "3. Rouge" << endl;
+    cout << "1. Warrior - 100 XP" << endl;
+    cout << "2. Mage - 250 XP" << endl;
+    cout << "3. Rouge - 170 XP" << endl;
     cout << endl;
     cout << "Enter Selection: ";
 }
@@ -172,69 +175,96 @@ void char_upgrade()
     switch (upgrade_choice)
     {
     case 1:
-        if (Warrior.hp >= 140)
+        if (xp > 100)
         {
-            warrior_max = true;
+            if (Warrior.hp >= 140)
+            {
+                warrior_max = true;
+            }
+            if (!warrior_max)
+            {
+                Warrior.hp += 10;
+                Warrior.atk_max += 5;
+                cout << "---------------------------------------" << endl;
+                cout << "Warrior Upgraded Successfully!" << endl;
+                cout << endl;
+                cout << "---------------------------------------" << endl;
+            }
+            if (warrior_max)
+            {
+                cout << "---------------------------------------" << endl;
+                cout << "Warrior is already at max level" << endl;
+                cout << endl;
+                cout << "---------------------------------------" << endl;
+            }
         }
-        if (!warrior_max)
+        else
         {
-            Warrior.hp += 10;
-            Warrior.atk_max += 5;
             cout << "---------------------------------------" << endl;
-            cout << "Warrior Upgraded Successfully!" << endl;
             cout << endl;
-            cout << "---------------------------------------" << endl;
-        }
-        if (warrior_max)
-        {
-            cout << "---------------------------------------" << endl;
-            cout << "Warrior is already at max level" << endl;
-            cout << endl;
-            cout << "---------------------------------------" << endl;
-        }
+            cout << "Insufficient XP" << endl;
+        }        
         break;
     case 2:
-        if (Mage.hp >= 280)
+        if (xp > 250)
         {
-            mage_max = true;
+            if (Mage.hp >= 280)
+            {
+                mage_max = true;
+            }
+            if (!mage_max)
+            {
+                Mage.hp += 20;
+                Mage.atk_max += 20;
+                cout << "---------------------------------------" << endl;
+                cout << "Mage Upgraded Successfully!" << endl;
+                cout << endl;
+                cout << "---------------------------------------" << endl;
+            }
+            if (mage_max)
+            {
+                cout << endl;
+                cout << "---------------------------------------" << endl;
+                cout << "Mage is already at max level" << endl;
+                cout << "---------------------------------------" << endl;
+            }
         }
-        if (!mage_max)
+        else
         {
-            Mage.hp += 20;
-            Mage.atk_max += 20;
             cout << "---------------------------------------" << endl;
-            cout << "Mage Upgraded Successfully!" << endl;
             cout << endl;
-            cout << "---------------------------------------" << endl;
-        }
-        if (mage_max)
-        {
-            cout << endl;
-            cout << "---------------------------------------" << endl;
-            cout << "Mage is already at max level" << endl;
-            cout << "---------------------------------------" << endl;
+            cout << "Insufficient XP" << endl;
         }
         break;
     case 3:
-        if (Rouge.hp >= 90)
+        if (xp > 250)
         {
-            rouge_max = true;
+            if (Rouge.hp >= 90)
+            {
+                rouge_max = true;
+            }
+            if (!rouge_max)
+            {
+                Rouge.hp += 5;
+                Rouge.atk_max += 10;
+                cout << "---------------------------------------" << endl;
+                cout << "Rouge Upgraded Successfully!" << endl;
+                cout << endl;
+                cout << "---------------------------------------" << endl;
+            }
+            if (rouge_max)
+            {
+                cout << "---------------------------------------" << endl;
+                cout << "Rouge is already at max level" << endl;
+                cout << endl;
+                cout << "---------------------------------------" << endl;
+            }
         }
-        if (!rouge_max)
-        {
-            Rouge.hp += 5;
-            Rouge.atk_max += 10;
-            cout << "---------------------------------------" << endl;
-            cout << "Rouge Upgraded Successfully!" << endl;
-            cout << endl;
-            cout << "---------------------------------------" << endl;
-        }
-        if (rouge_max)
+        else
         {
             cout << "---------------------------------------" << endl;
-            cout << "Rouge is already at max level" << endl;
             cout << endl;
-            cout << "---------------------------------------" << endl;
+            cout << "Insufficient XP" << endl;
         }
         break;
     default:
@@ -244,7 +274,7 @@ void char_upgrade()
 // Shop Display
 void shop()
 {
-    int shop_choice = 0;
+    char shop_choice;
     char shop_loop;
     do
     {
