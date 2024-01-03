@@ -16,7 +16,7 @@ struct Enemy
 };
 
 // Special
-bool speacials_unlocked = false;
+bool specials_unlocked = false;
 // Currency
 int currency = 30;
 
@@ -373,7 +373,6 @@ void action()
 {
     cout << endl;
     cout << "1. Attack        2. Inventory      3. Ability       " << endl;
-    cout << "4. Press any key to flee " << endl;
     cout << endl;
     cout << "Enter Choice: ";
     cin >> action_choice;
@@ -418,11 +417,11 @@ void CharSelectMenu()
     cout << "1. Warrior" << endl;
     cout << "2. Mage" << endl;
     cout << "3. Rouge" << endl;
-    if (!speacials_unlocked)
+    if (!specials_unlocked)
     {
         cout << "4. Character Locked" << endl;
     }
-    if (speacials_unlocked)
+    if (specials_unlocked)
     {
         cout << "4. Old Wizard" << endl;
     }
@@ -433,7 +432,7 @@ void charSelect()
 {
     int choice = 0;
     // If Grim Reaper Defeated
-    if (speacials_unlocked)
+    if (specials_unlocked)
     {
         do
         {
@@ -475,7 +474,7 @@ void charSelect()
     }
 
     // If Grim Reaper Not Defeated
-    if (!speacials_unlocked)
+    if (!specials_unlocked)
     {
         do
         {
@@ -515,14 +514,18 @@ void charSelect()
 // Battle
 void battle()
 {
-    char fight;
+    int fight;
     cout << endl;
+    cout << "---------------------------------------" << endl;
     cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-    cout << "Fight?(y/n): ";
+    cout << endl;
+    cout << "1. Fight     2.Flee" << endl;
+    cout << "---------------------------------------" << endl;
+    cout << "Selection: ";
     cin >> fight;
     do
     {
-        if (fight == 'y')
+        if (fight == 1)
         {
             CharStatDisplay(Selected_Char);
             EnemyStatDisplay(Active_Enemy);
@@ -532,15 +535,15 @@ void battle()
                 break;
             }
         }
-        else if (fight == 'n')
-        {
-            break;
-        }
         else
         {
             cout << "Wrong Entry! Try Again." << endl;
         }
-    } while (fight == 'y');
+        if (fight == 2)
+        {
+            break;
+        }
+    } while (fight < 3);
 }
 //Quest
 void quest()
@@ -550,18 +553,21 @@ void quest()
     cout << "---------------------------------------" << endl;
     cout << endl;
     cout << "Select a Quest: " << endl;
+    cout << endl;
     cout << "1. Easy Quest" << endl;
     cout << "2. Normal Quest" << endl;
     cout << "3. Hard Quest" << endl;
     cout << "4. Impossible Quest" << endl;
-    if (!speacials_unlocked)
+    if (!specials_unlocked)
     {
         cout << "5. Quest Locked" << endl;
     }
-    if (speacials_unlocked)
+    if (specials_unlocked)
     {
-        cout << "4. The Final Battle" << endl;
+        cout << "5. The Final Battle" << endl;
     }
+    cout << endl;
+    cout << "---------------------------------------" << endl;
     cout << endl;
     cout << "Enter Selection: ";
     cin >> quest_select;
@@ -677,22 +683,53 @@ void quest()
         battle();
         if (Active_Enemy.hp <= 0)
         {
-            speacials_unlocked = true;
+            specials_unlocked = true;
         }
         // Reward
         cout << "* Impossible Quest Completed! *" << endl;
         cout << "* You have earned 50$ and 500 XP *" << endl;
         currency += 50;
         xp += 500;
+        break;
 
     // The Final Battle
     case 5:
-        int fate = 0;
-        cout << endl;
-        cout << "---------------------------------------" << endl;
-        cout << "Choose your Fate:" << endl;
-        cout << "1. Destroy the Shadow Realm" << endl;
-        cout << "2. Destroy the Fairy World" << endl;
+        if (specials_unlocked)
+        {
+            int fate = 0;
+            cout << endl;
+            cout << "---------------------------------------" << endl;
+            cout << "Choose your Fate:" << endl;
+            cout << "1. Destroy the Shadow Realm" << endl;
+            cout << "2. Destroy the Fairy World" << endl;
+            cout << "Enter Selection: ";
+            do
+            {
+                cin >> fate;
+                if (fate == 1)
+                {
+                    //Good Ending
+                    enemyDecision(Shadow_Overlord);
+                    battle();
+                }
+
+                if (fate == 2)
+                {
+                    //Bad Ending
+                    enemyDecision(Fairy_King);
+                    battle;
+                }
+            } while (fate > 2);
+        }
+        if (!specials_unlocked)
+        {
+            cout << "Quest Locked!" << endl;
+        }
+        // Rewards
+        cout << "* Impossible Quest Completed! *" << endl;
+        cout << "* You have earned 100$ and 1000 XP *" << endl;
+        currency += 100;
+        xp += 1000;
     }
 }
 
