@@ -15,6 +15,8 @@ struct Enemy
     int atk;
 };
 
+// Special
+bool speacials_unlocked = false;
 // Currency
 int currency = 30;
 
@@ -24,6 +26,8 @@ int xp = 0;
 // Inventory Items
 int Healing_Portion = 2;
 int Poison_Spell = 1;
+
+// Special Items
 
 // Speacial Powers
 bool warrior_sp = false;
@@ -45,7 +49,7 @@ Enemy Active_Enemy;
 Character Warrior = { "Warrior", 100, 15 };
 Character Mage = { "Mage", 200, 10 };
 Character Rouge = { "Rouge", 70, 70 };
-Character Nigger = { "Nigger", 1000, 1000 };//Test Character
+Character Old_Wizard = { "Old Wizard", 520, 480 };//Special Character
 
 // Initialize Enemies
 Enemy Dragon = { "Dragon", 50, 15 };
@@ -53,6 +57,8 @@ Enemy Skeleton = { "Skeleton",30,10 };
 Enemy Ghost = { "Ghost",90,30 };
 Enemy Centaur = { "Centaur",100,30 };
 Enemy GrimReaper = { "Grim Reaper",150,70 };
+Enemy Shadow_Overlord = { "Shadow Overlord",1000,150 };
+Enemy Fairy_King = { "Fairy King",800,200 };
 
 // Enemy Decision
 // Easily Create Enemy in Quest
@@ -412,50 +418,98 @@ void CharSelectMenu()
     cout << "1. Warrior" << endl;
     cout << "2. Mage" << endl;
     cout << "3. Rouge" << endl;
+    if (!speacials_unlocked)
+    {
+        cout << "4. Character Locked" << endl;
+    }
+    if (speacials_unlocked)
+    {
+        cout << "4. Old Wizard" << endl;
+    }
 }
 
 // Character Selection
 void charSelect()
 {
     int choice = 0;
-    do
+    // If Grim Reaper Defeated
+    if (speacials_unlocked)
     {
-
-        cout << endl;
-        cout << "---------------------------------------" << endl;
-        cout << "Selection: ";
-        cin >> choice;
-        switch (choice)
+        do
         {
-        case 1:
-            Selected_Char.name = Warrior.name;
-            Selected_Char.hp = Warrior.hp;
-            Selected_Char.atk = Warrior.atk;
-            warrior_sp = true;
-            break;
-        case 2:
-            Selected_Char.name = Mage.name;
-            Selected_Char.hp = Mage.hp;
-            Selected_Char.atk = Mage.atk;
-            mage_sp = true;
-            break;
-        case 3:
-            Selected_Char.name = Rouge.name;
-            Selected_Char.hp = Rouge.hp;
-            Selected_Char.atk = Rouge.atk;
-            rouge_sp = true;
-            break;
-        case 4:
-            Selected_Char.name = Nigger.name;
-            Selected_Char.hp = Nigger.hp;
-            Selected_Char.atk = Nigger.atk;
-            break;
-            //Remove when final version is ready
-        default:
+
             cout << endl;
-            cout << "Wrong Entry! Enter Again";
-        }
-    } while (choice > 4);
+            cout << "---------------------------------------" << endl;
+            cout << "Selection: ";
+            cin >> choice;
+            switch (choice)
+            {
+            case 1:
+                Selected_Char.name = Warrior.name;
+                Selected_Char.hp = Warrior.hp;
+                Selected_Char.atk = Warrior.atk;
+                warrior_sp = true;
+                break;
+            case 2:
+                Selected_Char.name = Mage.name;
+                Selected_Char.hp = Mage.hp;
+                Selected_Char.atk = Mage.atk;
+                mage_sp = true;
+                break;
+            case 3:
+                Selected_Char.name = Rouge.name;
+                Selected_Char.hp = Rouge.hp;
+                Selected_Char.atk = Rouge.atk;
+                rouge_sp = true;
+                break;
+            case 4:
+                Selected_Char.name = Old_Wizard.name;
+                Selected_Char.hp = Old_Wizard.hp;
+                Selected_Char.atk = Old_Wizard.atk;
+                break;
+            default:
+                cout << endl;
+                cout << "Wrong Entry! Enter Again";
+            }
+        } while (choice > 4);
+    }
+
+    // If Grim Reaper Not Defeated
+    if (!speacials_unlocked)
+    {
+        do
+        {
+
+            cout << endl;
+            cout << "---------------------------------------" << endl;
+            cout << "Selection: ";
+            cin >> choice;
+            switch (choice)
+            {
+            case 1:
+                Selected_Char.name = Warrior.name;
+                Selected_Char.hp = Warrior.hp;
+                Selected_Char.atk = Warrior.atk;
+                warrior_sp = true;
+                break;
+            case 2:
+                Selected_Char.name = Mage.name;
+                Selected_Char.hp = Mage.hp;
+                Selected_Char.atk = Mage.atk;
+                mage_sp = true;
+                break;
+            case 3:
+                Selected_Char.name = Rouge.name;
+                Selected_Char.hp = Rouge.hp;
+                Selected_Char.atk = Rouge.atk;
+                rouge_sp = true;
+                break;
+            default:
+                cout << endl;
+                cout << "Wrong Entry! Enter Again" << endl;
+            }
+        } while (choice > 3);
+    }
 }
 
 // Battle
@@ -500,12 +554,20 @@ void quest()
     cout << "2. Normal Quest" << endl;
     cout << "3. Hard Quest" << endl;
     cout << "4. Impossible Quest" << endl;
+    if (!speacials_unlocked)
+    {
+        cout << "5. Quest Locked" << endl;
+    }
+    if (speacials_unlocked)
+    {
+        cout << "4. The Final Battle" << endl;
+    }
     cout << endl;
     cout << "Enter Selection: ";
     cin >> quest_select;
     switch (quest_select)
     {
-        // Easy Quest
+    // Easy Quest
     case 1:
         // 2 Skeletons
         // Set Skeleton as Active Enemy
@@ -527,7 +589,7 @@ void quest()
         xp += 50;
         break;
 
-        // Normal Quest
+    // Normal Quest
     case 2:
         // 3 Skeletons
         // Set Skeleton as Active Enemy
@@ -562,7 +624,7 @@ void quest()
         xp += 100;
         break;
 
-        //Hard Quest
+    //Hard Quest
     case 3:
         // 2 Dragon
         // Set Dragon as Active Enemy
@@ -597,7 +659,7 @@ void quest()
         xp += 200;
         break;
 
-        //Impossible
+    //Impossible
     case 4:
         // 1 Dragon
         // Set Dragon as Active Enemy
@@ -613,11 +675,24 @@ void quest()
         // Set Grim Reaper as Active Enemy
         enemyDecision(GrimReaper);
         battle();
+        if (Active_Enemy.hp <= 0)
+        {
+            speacials_unlocked = true;
+        }
         // Reward
         cout << "* Impossible Quest Completed! *" << endl;
         cout << "* You have earned 50$ and 500 XP *" << endl;
         currency += 50;
         xp += 500;
+
+    // The Final Battle
+    case 5:
+        int fate = 0;
+        cout << endl;
+        cout << "---------------------------------------" << endl;
+        cout << "Choose your Fate:" << endl;
+        cout << "1. Destroy the Shadow Realm" << endl;
+        cout << "2. Destroy the Fairy World" << endl;
     }
 }
 
