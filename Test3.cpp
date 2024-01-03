@@ -20,6 +20,7 @@ int currency = 30;
 
 // XP Points
 int xp = 0;
+
 // Inventory Items
 int Healing_Portion = 2;
 int Poison_Spell = 1;
@@ -386,7 +387,16 @@ void action()
         inventory_selection(inventory_choice);
         break;
     case 3:
-        special_ability();
+        if (sp_used)
+        {
+            cout << endl;
+            cout << "Special Ability can only be used only once!" << endl;
+        }
+        if (!sp_used)
+        {
+            special_ability();
+            sp_used = true;
+        }
         break;
     }
 }
@@ -448,6 +458,36 @@ void charSelect()
     } while (choice > 4);
 }
 
+// Battle
+void battle()
+{
+    char fight;
+    cout << endl;
+    cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
+    cout << "Fight?(y/n): ";
+    cin >> fight;
+    do
+    {
+        if (fight == 'y')
+        {
+            CharStatDisplay(Selected_Char);
+            EnemyStatDisplay(Active_Enemy);
+            action();
+            if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
+            {
+                break;
+            }
+        }
+        else if (fight == 'n')
+        {
+            break;
+        }
+        else
+        {
+            cout << "Wrong Entry! Try Again." << endl;
+        }
+    } while (fight == 'y');
+}
 //Quest
 void quest()
 {
@@ -473,39 +513,14 @@ void quest()
         for (int q1_sk = 1; q1_sk <= 2; q1_sk++)
         {
             Active_Enemy.hp = 30;
-            cout << endl;
-            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-            cout << "Fight?(y/n): ";
-            cin >> fight;
-            do
-            {
-                CharStatDisplay(Selected_Char);
-                EnemyStatDisplay(Active_Enemy);
-                action();
-                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
-                {
-                    break;
-                }
-            } while (fight == 'y');
+            battle();
         }
 
         // 1 Dragon
         // Set Dragon as Active Enemy
         enemyDecision(Dragon);
-        cout << endl;
-        cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-        cout << "Fight?(y/n): ";
-        cin >> fight;
-        do
-        {
-            CharStatDisplay(Selected_Char);
-            EnemyStatDisplay(Active_Enemy);
-            action();
-            if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
-            {
-                break;
-            }
-        } while (fight == 'y');
+        battle();
+        // Reward
         cout << "* Easy Quest Completed! *" << endl;
         cout << "* You have earned 5$ and 50 XP *" << endl;
         currency += 5;
@@ -520,20 +535,7 @@ void quest()
         for (int q2_sk = 1; q2_sk <= 3; q2_sk++)
         {
             Active_Enemy.hp = 30;
-            cout << endl;
-            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-            cout << "Fight?(y/n): ";
-            cin >> fight;
-            do
-            {
-                CharStatDisplay(Selected_Char);
-                EnemyStatDisplay(Active_Enemy);
-                action();
-                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
-                {
-                    break;
-                }
-            } while (fight == 'y');
+            battle();
         }
 
         // 2 Dragon
@@ -542,20 +544,7 @@ void quest()
         for (int q2_drg = 1; q2_drg <= 2; q2_drg++)
         {
             Active_Enemy.hp = 50;
-            cout << endl;
-            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-            cout << "Fight?(y/n): ";
-            cin >> fight;
-            do
-            {
-                CharStatDisplay(Selected_Char);
-                EnemyStatDisplay(Active_Enemy);
-                action();
-                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
-                {
-                    break;
-                }
-            } while (fight == 'y');
+            battle();
         }
 
         // 2 Ghost
@@ -564,22 +553,10 @@ void quest()
         for (int q2_gho = 1; q2_gho <= 2; q2_gho++)
         {
             Active_Enemy.hp = 90;
-            cout << endl;
-            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-            cout << "Fight?(y/n): ";
-            cin >> fight;
-            do
-            {
-                CharStatDisplay(Selected_Char);
-                EnemyStatDisplay(Active_Enemy);
-                action();
-                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
-                {
-                    break;
-                }
-            } while (fight == 'y');
+            battle();
         }
-        cout << "* Easy Quest Completed! *" << endl;
+        // Reward
+        cout << "* Normal Quest Completed! *" << endl;
         cout << "* You have earned 10$ and 100 XP *" << endl;
         currency += 10;
         xp += 100;
@@ -593,20 +570,7 @@ void quest()
         for (int q3_drg = 1; q3_drg <= 2; q3_drg++)
         {
             Active_Enemy.hp = 50;
-            cout << endl;
-            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-            cout << "Fight?(y/n): ";
-            cin >> fight;
-            do
-            {
-                CharStatDisplay(Selected_Char);
-                EnemyStatDisplay(Active_Enemy);
-                action();
-                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
-                {
-                    break;
-                }
-            } while (fight == 'y');
+            battle();
         }
 
         // 3 Ghost
@@ -615,20 +579,7 @@ void quest()
         for (int q3_gho = 1; q3_gho <= 3; q3_gho++)
         {
             Active_Enemy.hp = 90;
-            cout << endl;
-            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-            cout << "Fight?(y/n): ";
-            cin >> fight;
-            do
-            {
-                CharStatDisplay(Selected_Char);
-                EnemyStatDisplay(Active_Enemy);
-                action();
-                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
-                {
-                    break;
-                }
-            } while (fight == 'y');
+            battle();
         }
 
         // 3 Centaurs
@@ -637,22 +588,10 @@ void quest()
         for (int q3_cen = 1; q3_cen <= 3; q3_cen++)
         {
             Active_Enemy.hp = 90;
-            cout << endl;
-            cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-            cout << "Fight?(y/n): ";
-            cin >> fight;
-            do
-            {
-                CharStatDisplay(Selected_Char);
-                EnemyStatDisplay(Active_Enemy);
-                action();
-                if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
-                {
-                    break;
-                }
-            } while (fight == 'y');
+            battle();
         }
-        cout << "* Easy Quest Completed! *" << endl;
+        // Reward
+        cout << "* Hard Quest Completed! *" << endl;
         cout << "* You have earned 20$ and 200 XP *" << endl;
         currency += 20;
         xp += 200;
@@ -663,57 +602,19 @@ void quest()
         // 1 Dragon
         // Set Dragon as Active Enemy
         enemyDecision(Dragon);
-        cout << endl;
-        cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-        cout << "Fight?(y/n): ";
-        cin >> fight;
-        do
-        {
-            CharStatDisplay(Selected_Char);
-            EnemyStatDisplay(Active_Enemy);
-            action();
-            if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
-            {
-                break;
-            }
-        } while (fight == 'y');
+        battle();
 
         // 1 Ghost
         // Set Ghost as Active Enemy
         enemyDecision(Ghost);
-        cout << endl;
-        cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-        cout << "Fight?(y/n): ";
-        cin >> fight;
-        do
-        {
-            CharStatDisplay(Selected_Char);
-            EnemyStatDisplay(Active_Enemy);
-            action();
-            if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
-            {
-                break;
-            }
-        } while (fight == 'y');
+        battle();
 
         // 1 Grim Reaper
         // Set Grim Reaper as Active Enemy
         enemyDecision(GrimReaper);
-        cout << endl;
-        cout << "*A Lvl 1 " << Active_Enemy.name << " Appeared!*" << endl;
-        cout << "Fight?(y/n): ";
-        cin >> fight;
-        do
-        {
-            CharStatDisplay(Selected_Char);
-            EnemyStatDisplay(Active_Enemy);
-            action();
-            if (Selected_Char.hp <= 0 || Active_Enemy.hp <= 0)
-            {
-                break;
-            }
-        } while (fight == 'y');
-        cout << "* Easy Quest Completed! *" << endl;
+        battle();
+        // Reward
+        cout << "* Impossible Quest Completed! *" << endl;
         cout << "* You have earned 50$ and 500 XP *" << endl;
         currency += 50;
         xp += 500;
